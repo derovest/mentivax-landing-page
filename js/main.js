@@ -156,20 +156,35 @@
   }
 
   // --- Header scroll effect ---
+  // Reads scrollY inside rAF and only touches the DOM when the state actually
+  // flips, so scrolling never forces a synchronous layout.
   var header = document.getElementById('header');
 
   if (header) {
+    var scrolled = false;
+    var ticking = false;
+
+    function updateHeader() {
+      ticking = false;
+      var next = window.scrollY > 100;
+      if (next !== scrolled) {
+        scrolled = next;
+        header.classList.toggle('is-scrolled', scrolled);
+      }
+    }
+
     window.addEventListener(
       'scroll',
       function () {
-        if (window.pageYOffset > 100) {
-          header.style.background = 'rgba(15, 27, 52, 0.97)';
-        } else {
-          header.style.background = 'rgba(15, 27, 52, 0.92)';
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateHeader);
         }
       },
       { passive: true }
     );
+
+    updateHeader();
   }
 
   // --- Service Worker Registration ---

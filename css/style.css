@@ -232,6 +232,10 @@ strong {
   transition: background 0.3s ease;
 }
 
+.site-header.is-scrolled {
+  background: rgba(15, 27, 52, 0.97);
+}
+
 .header-inner {
   display: flex;
   align-items: center;
@@ -940,12 +944,26 @@ strong {
 }
 
 .command-bar {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
   background: var(--color-surface-dark);
   border-radius: var(--radius-lg);
   padding: 18px 20px;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35), 0 0 34px -8px rgba(37, 99, 235, 0.55);
+}
+
+/* Glow pulse runs on opacity only so it stays on the compositor. */
+.command-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.6), 0 0 54px -6px rgba(37, 99, 235, 0.8);
+  opacity: 0;
+  will-change: opacity;
   animation: mvGlow 3.6s ease-in-out infinite;
 }
 
@@ -957,12 +975,8 @@ strong {
 }
 
 @keyframes mvGlow {
-  0%, 100% {
-    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35), 0 0 34px -8px rgba(37, 99, 235, 0.55);
-  }
-  50% {
-    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.6), 0 0 54px -6px rgba(37, 99, 235, 0.8);
-  }
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 .command-bar-icon {
