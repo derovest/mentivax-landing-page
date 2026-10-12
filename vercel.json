@@ -1,6 +1,7 @@
 {
   "trailingSlash": true,
   "redirects": [
-    { "source": "/contact.html", "destination": "/contact/", "permanent": true }
+    { "source": "/contact.html", "destination": "/contact/", "permanent": true },
+    { "source": "/services/", "destination": "/features/", "permanent": true }
   ]
 }
