@@ -1,7 +1,6 @@
-const CACHE_NAME = 'mentivax-v5';
+const CACHE_NAME = 'mentivax-v6';
 const ASSETS = [
   '/',
-  '/index.html',
   '/css/style.css',
   '/js/main.js',
   '/manifest.json',

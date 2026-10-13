@@ -220,6 +220,49 @@
     updateHeader();
   }
 
+  // --- CTA click tracking (GA4 + Clarity) ---
+  // One delegated listener covers every page. Links can name their CTA with
+  // data-cta; otherwise the type is inferred from the link itself.
+  function ctaType(link) {
+    var explicit = link.getAttribute('data-cta');
+    if (explicit) return explicit;
+    var href = link.getAttribute('href') || '';
+    var text = (link.textContent || '').toLowerCase();
+    if (href.indexOf('wa.me/') !== -1) {
+      if (/free(%20|\s)pilot/i.test(href) || text.indexOf('free pilot') !== -1) return 'free_pilot';
+      if (/demo/i.test(href) || text.indexOf('demo') !== -1) return 'demo';
+      return 'whatsapp';
+    }
+    if (href.indexOf('mailto:') === 0) return 'email';
+    return null;
+  }
+
+  function ctaLocation(link) {
+    if (link.closest('.site-header')) return 'header';
+    if (link.closest('.site-footer')) return 'footer';
+    var section = link.closest('section');
+    if (!section) return 'other';
+    return section.id || section.className.split(' ')[0];
+  }
+
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a');
+    if (!link) return;
+    var type = ctaType(link);
+    if (!type) return;
+    var params = {
+      cta_location: ctaLocation(link),
+      page_type: document.body.getAttribute('data-page-type') || 'standard',
+      link_text: (link.textContent || '').trim().slice(0, 60)
+    };
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', type + '_click', params);
+    }
+    if (typeof window.clarity === 'function') {
+      window.clarity('event', type + '_click');
+    }
+  });
+
   // --- Service Worker Registration ---
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
