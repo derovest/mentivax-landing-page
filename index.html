@@ -186,35 +186,67 @@
   <main id="main">
 
     <section class="hero" id="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="/images/product/hero-loop-poster.webp">
+          <source src="/images/product/hero-loop.mp4" type="video/mp4">
+        </video>
+      </div>
       <div class="container">
-        <div class="hero-content">
-          <p class="section-label hero-label">School automation &amp; management software for Indian schools</p>
-          <h1 class="hero-title">Less paperwork,<br><span class="hero-accent">more teaching.</span></h1>
-          <p class="hero-subtitle">Mentivax is school automation software that gives your school its own AI agent and automates the routine work, from fee reminders and receipts to absence alerts, timetables and report cards. Ask anything in plain words and approve the work it prepares.</p>
-          <div class="hero-ctas">
-            <a href="https://wa.me/916381641340?text=Hi!%20I%27d%20like%20to%20start%20a%20free%20pilot%20for%20my%20school." class="btn btn-primary btn-lg" target="_blank" rel="noopener">Start free pilot</a>
-            <a href="/what-is-mentivax/" class="btn btn-outline-hero btn-lg">See how it works</a>
+        <div class="hero-grid">
+          <div class="hero-content">
+            <p class="section-label hero-label">School automation &amp; management software for Indian schools</p>
+            <h1 class="hero-title">Less paperwork,<br><span class="hero-accent">more teaching.</span></h1>
+            <p class="hero-subtitle">Mentivax is school automation software that gives your school its own AI agent and automates the routine work, from fee reminders and receipts to absence alerts, timetables and report cards. Ask anything in plain words and approve the work it prepares.</p>
+            <div class="hero-ctas">
+              <a href="https://wa.me/916381641340?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Mentivax." class="btn btn-primary btn-lg" target="_blank" rel="noopener" data-cta="demo">Book a demo</a>
+              <button type="button" class="btn btn-outline-hero btn-lg btn-video" data-video="eUw-hUWLwcA">
+                <span class="hero-video-icon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+                Watch video
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Interactive Command Bar -->
-        <div class="command-bar-wrap">
-          <div class="command-bar" aria-live="polite">
-            <span class="command-bar-icon" aria-hidden="true"></span>
-            <span class="command-bar-text" id="commandQuestion"></span>
-            <span class="command-bar-caret" aria-hidden="true"></span>
-            <span class="command-bar-hint" aria-hidden="true">Ask Mentivax</span>
-          </div>
-          <div class="command-answer" aria-live="polite">
-            <span class="command-answer-icon" aria-hidden="true">M</span>
-            <span class="command-answer-text" id="commandAnswer"></span>
-          </div>
-          <div class="command-tags">
-            <span class="command-tags-label">Try asking:</span>
-            <span class="tag">pending fees for Class 8</span>
-            <span class="tag">weak students in Maths</span>
-            <span class="tag">today's fee collection</span>
-            <span class="tag">send reminder on WhatsApp</span>
+          <!-- Real Mentivax screens on a laptop, the Ask animation on a phone -->
+          <div class="hero-devices">
+            <div class="device-laptop" role="img" aria-label="Mentivax on a laptop: the home screen, an AI answer, recording a payment and the collection report">
+              <div class="device-laptop-screen">
+              <img src="/images/product/hero-dashboard.webp" srcset="/images/product/hero-dashboard-720.webp 720w, /images/product/hero-dashboard.webp 1280w" sizes="(min-width: 1100px) 640px, 90vw" width="1280" height="800" alt="" fetchpriority="high" decoding="async">
+              <img src="/images/product/hero-ask-ai.webp" srcset="/images/product/hero-ask-ai-720.webp 720w, /images/product/hero-ask-ai.webp 1280w" sizes="(min-width: 1100px) 640px, 90vw" width="1280" height="800" alt="" loading="lazy" decoding="async">
+              <img src="/images/product/hero-record-payment.webp" srcset="/images/product/hero-record-payment-720.webp 720w, /images/product/hero-record-payment.webp 1280w" sizes="(min-width: 1100px) 640px, 90vw" width="1280" height="800" alt="" loading="lazy" decoding="async">
+              <img src="/images/product/hero-reports-by-class.webp" srcset="/images/product/hero-reports-by-class-720.webp 720w, /images/product/hero-reports-by-class.webp 1280w" sizes="(min-width: 1100px) 640px, 90vw" width="1280" height="800" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="device-laptop-base" aria-hidden="true"></div>
+            </div>
+            <div class="device-phone">
+              <div class="device-phone-screen">
+                <div class="phone-status" aria-hidden="true">
+                  <span class="phone-time">9:41</span>
+                  <span class="phone-island"></span>
+                  <span class="phone-icons">
+                    <svg width="15" height="10" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+                    <svg width="13" height="10" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.3-1.4A10.4 10.4 0 0 0 8 .2 10.4 10.4 0 0 0 .7 3.2L2 4.6a8.4 8.4 0 0 1 6-2.4Zm0 3.8c1.3 0 2.5.5 3.4 1.3l1.3-1.4A6.6 6.6 0 0 0 8 4a6.6 6.6 0 0 0-4.7 1.9l1.3 1.4C5.5 6.5 6.7 6 8 6Zm0 3.6a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2Z"/></svg>
+                    <span class="phone-battery"><span></span></span>
+                  </span>
+                </div>
+                <div class="phone-app-bar" aria-hidden="true">
+                  <span class="phone-app-logo">M</span>
+                  <span class="phone-app-title"><strong>Ask Mentivax</strong><small>&#9679; Online</small></span>
+                </div>
+                <div class="phone-chat">
+                  <div class="command-bar" aria-live="polite">
+                    <span class="command-bar-text" id="commandQuestion"></span><span class="command-bar-caret" aria-hidden="true"></span>
+                  </div>
+                  <div class="command-answer" aria-live="polite">
+                    <span class="command-answer-icon" aria-hidden="true">M</span>
+                    <span class="command-answer-text" id="commandAnswer"></span>
+                  </div>
+                </div>
+                <div class="phone-input" aria-hidden="true">
+                  Ask anything&hellip;
+                  <span class="phone-input-send"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

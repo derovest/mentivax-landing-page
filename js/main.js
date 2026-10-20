@@ -263,6 +263,83 @@
     }
   });
 
+  // --- Hero background loop: still poster only for reduced-motion users ---
+  var heroVideo = document.querySelector('.hero-bg-video');
+  if (heroVideo && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroVideo.removeAttribute('autoplay');
+    heroVideo.pause();
+  }
+
+  // --- Intro video (YouTube, loaded only when asked for) ---
+  // Any element with data-video="<youtube id>" opens the player in a modal.
+  var videoModal = null;
+  var videoFrame = null;
+  var videoOpener = null;
+
+  function buildVideoModal() {
+    videoModal = document.createElement('dialog');
+    videoModal.className = 'video-modal';
+    videoModal.setAttribute('aria-label', 'Mentivax introduction video');
+    videoModal.innerHTML =
+      '<div class="video-modal-inner">' +
+        '<button type="button" class="video-modal-close">' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Close' +
+        '</button>' +
+        '<div class="video-modal-frame"></div>' +
+        '<p class="video-modal-fallback">Video not playing? <a target="_blank" rel="noopener">Watch it on YouTube</a></p>' +
+      '</div>';
+    document.body.appendChild(videoModal);
+    videoFrame = videoModal.querySelector('.video-modal-frame');
+    videoModal.querySelector('.video-modal-close').addEventListener('click', closeVideo);
+    videoModal.addEventListener('click', function (e) {
+      if (e.target === videoModal) closeVideo();
+    });
+    // Esc fires "cancel"; route it through closeVideo so the player is removed.
+    videoModal.addEventListener('cancel', function (e) {
+      e.preventDefault();
+      closeVideo();
+    });
+  }
+
+  function openVideo(id, opener) {
+    if (!videoModal) buildVideoModal();
+    videoOpener = opener;
+    videoModal.querySelector('.video-modal-fallback a').href = 'https://www.youtube.com/watch?v=' + id;
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    iframe.title = 'Mentivax in 60 seconds';
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    iframe.allowFullscreen = true;
+    videoFrame.appendChild(iframe);
+    if (typeof videoModal.showModal === 'function') videoModal.showModal();
+    else videoModal.setAttribute('open', '');
+    document.body.style.overflow = 'hidden';
+    videoModal.querySelector('.video-modal-close').focus();
+  }
+
+  function closeVideo() {
+    if (!videoModal) return;
+    videoFrame.innerHTML = '';
+    if (typeof videoModal.close === 'function' && videoModal.open) videoModal.close();
+    else videoModal.removeAttribute('open');
+    document.body.style.overflow = '';
+    if (videoOpener) videoOpener.focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    var trigger = e.target.closest && e.target.closest('[data-video]');
+    if (!trigger) return;
+    e.preventDefault();
+    openVideo(trigger.getAttribute('data-video'), trigger);
+    var section = trigger.closest('section');
+    var params = {
+      video_location: (section && section.id) || 'other',
+      page_type: document.body.getAttribute('data-page-type') || 'standard'
+    };
+    if (typeof window.gtag === 'function') window.gtag('event', 'video_play', params);
+    if (typeof window.clarity === 'function') window.clarity('event', 'video_play');
+  });
+
   // --- Service Worker Registration ---
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
