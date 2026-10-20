@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mentivax-v11';
+const CACHE_NAME = 'mentivax-v12';
 const ASSETS = [
   '/',
   '/css/style.css',
